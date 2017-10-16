@@ -1,7 +1,6 @@
-import Models
+from Models import * 
+from SearchManager import * 
 
-class Main:
-    
-    def start:
-        #run program here 
+search_manager = SearchManager()
+search_manager.start()
 
