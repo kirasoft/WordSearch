@@ -1,95 +1,76 @@
-import random
+from random import random, randint, choice
 import string
-import Direction
+from copy import deepcopy
+from .Direction import * 
+from .SearchChar import *
+from .GridPoint import * 
 
 class Grid:
-    
-    grid_points = [][]
-   
-
     cur_direction = Direction.HORIZONTAL
     dimension = 0
+    max = 0
 
     def __init__(self, _dimension):
-        self.dimension = _dimension
-        self.cur_direction = random.choice(list(Direction))
-        create_grid_points(dimension)
-        
+        self.dimension = _dimension 
+        self.create_grid_points()
 
-    def create_grid_points(_dimension):
-       min = 0
-       max = _dimension 
+    def create_grid_points(self):
+       self.max = self.dimension - 1 
+       self.grid_points = [['']*self.dimension for i in range(self.dimension)]
 
-       for x in range(min, max):
-           for y in range(min, max):
-               char = ''
-               search_char = SearchChar(x, y, char)
-               grid_points[x][y] = search_char
+       print("Dimension is {0} and Max is {1} and length of Matrix is {2}".format(self.dimension, self.max, len(self.grid_points)))
     
-    def move_current_position(cur_x, cur_y):
-        if cur_direction == Direction.HORIZONTAL:
+    def move_current_position(self, cur_x, cur_y):
+        if self.cur_direction == Direction.HORIZONTAL:
             cur_x = cur_x + 1
-        elif cur_direction == Direction.VERTICAL:
+        elif self.cur_direction == Direction.VERTICAL:
             cur_y = cur_y + 1
-        elif cur_directiion == Direction.UP_LEFT_DIAGNOL:
+        elif self.cur_directiion == Direction.UP_LEFT_DIAGNOL:
             cur_x = cur_x - 1
             cur_y = cur_y - 1
-        elif cur_direction == Direction.UP_RIGHT_DIAGNOL:
+        elif self.cur_direction == Direction.UP_RIGHT_DIAGNOL:
             cur_x = cur_x + 1
             cur_y = cur_y - 1
-        elif cur_direction == Direction.DOWN_LEFT_DIAGNOL:
+        elif self.cur_direction == Direction.DOWN_LEFT_DIAGNOL:
             cur_x = cur_x - 1
             cur_y = cur_y + 1
-        elif cur_direciton == Direction.DOWN_RIGHT_DIAGNOL:
+        elif self.cur_direciton == Direction.DOWN_RIGHT_DIAGNOL:
             cur_x = cur_x + 1
             cur_y = cur_y + 1
         return GridPoint(cur_x, cur_y)
 
-    def check_length(word, cur_x, cur_y):
-        x = cur_x 
-        y = cur_y
-        for i in range(0, len(word)):
-            if x >= dimension or y >= dimension or x < 0 or y < 0:
-                return False
-            else:
-                grid_point = move_current_position(x, y)
-                x = grid_point.x
-                y = grid_point.y
-
+    def check_length(self, word, x, y):
+        if x > self.max - len(word) + 1 or y > self.max - len(word) + 1:
+            return False
         return True
 
-    def check_collision(word, cur_x, cur_y):
-        x = cur_x
-        y = cur_y
+    def check_collision(self, word, cur_x, cur_y, direction):
+        x = deepcopy(cur_x)
+        y = deepcopy(cur_y)
         for c in word:
-            if grid_points[x][y] == '' or grid_points[x][y] == c:
-                grid_point = move_current_position(x, y)
+            if self.grid_points[x][y] == '' or self.grid_points[x][y] == c:
+                grid_point = self.move_current_position(x, y)
                 x = grid_point.x
                 y = grid_point.y
             else:
                 return False
         return True
 
-
-    def check_validation(word, cur_x, cur_y, direction):
-        if check_length(word, cur_x, cur_Y):
-            return False
-        if check_collision(word, cur_x, cur_y, direction):
-            return False
-        return True
-            
-
-    def insert_word(word):
+    def insert_word(self, word):
         isValid = False
         cur_x = 0
         cur_y = 0
-        while !isValid:
-            cur_x = random.randint(0, dimension)
-            cur_y = rnadom.randint(0, dimension) 
-            direction = random.choice(list(Direction))
-            isValid = check_validation(word, cur_x, cur_y, direction) 
+        directions = [Direction.HORIZONTAL, Direction.VERTICAL, Direction.UP_LEFT_DIAGNOL, Direction.UP_RIGHT_DIAGNOL, Direction.DOWN_LEFT_DIAGNOL, Direction.DOWN_RIGHT_DIAGNOL] 
+        while not isValid:
+            cur_x = randint(0, self.max - len(word) + 1)
+            cur_y = randint(0, self.max - len(word) + 1) 
+            self.cur_direction = choice(directions)
+            x = deepcopy(cur_x)
+            y = deepcopy(cur_y)
+            isValid = self.check_collision(word, x, y, self.cur_direction) 
+
         for c in word:
-            grid_points[cur_x][cur_y] = c
-            grid_point = move_current_position(cur_x, cur_y)
+            self.grid_points[cur_x][cur_y] = c
+            grid_point = self.move_current_position(cur_x, cur_y)
             cur_x = grid_point.x
-            cur_y = gird_point.y
+            cur_y = grid_point.y
