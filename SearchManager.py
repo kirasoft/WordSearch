@@ -1,25 +1,23 @@
 from Models.Word import Word
 from Models.SearchChar import SearchChar
 from Models.Direction import Direction 
-from random import random 
+from Models.Grid import Grid
+from random import randint
 
 # Manages all word search related functionality 
 # This includes creating the word search and keeping track of found words / words left 
 class SearchManager:
-    wordsLeft = 0
+    words_left = 0
     grid = [] 
+    word_list = [] 
 
-    def __init__(self, listOfWords)
-        self.listOfWords = listOfWords
-
-    def start:
+    def start():
         print("Enter your words seperated by a comma.") 
         #take in users words
         words_str = input("Enter search words: ") 
         words_strs = words_str.split(",")
-        words = []
         passes_validation =  True
-        logest_word_length = 0
+        longest_word_length = 0
 
         for word in words_strs:
 
@@ -34,17 +32,14 @@ class SearchManager:
                 passes_validation = False
                 break
 
-            w = Word(word, 0, 0)
-            words.append(w)
-
         if passes_validation:
             #display created word search 
             if longest_word_length < 10:
                 longest_word_length = 10
 
-            search_dimensions =  random.randint(longest_word_length, longest_word_length + 5)
+            search_dimensions = randint(longest_word_length, longest_word_length + 5)
             grid = Grid(search_dimensions) 
-            for w in words:
+            for w in words_strs:
                 grid.insert_word(w)
         else:
             #didn't pass validation
@@ -59,6 +54,3 @@ class SearchManager:
     
 
 
-    #steps to create word search
-    # 1. set grid w * h using logest word length 
-    # 2.  
