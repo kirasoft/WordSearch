@@ -43,6 +43,7 @@ class SearchManager:
                 grid.insert_word(w)
             grid.fill_in_blanks()
             with open('wordsearch.txt','w') as f:
+                f.truncate()
                 for x in range(grid.max):
                     for y in range(grid.max): 
                         f.write(grid.grid_points[x][y])
