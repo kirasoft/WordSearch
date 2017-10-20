@@ -44,13 +44,3 @@ class SearchManager:
         else:
             #didn't pass validation
             print("Words length can't be more than 20 characters long and word must contain only letters from the Alphabet.")
-
-        
-
-            
-
-
-
-    
-
-
