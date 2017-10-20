@@ -25,7 +25,7 @@ class Grid:
             cur_x = cur_x + 1
         elif self.cur_direction == Direction.VERTICAL:
             cur_y = cur_y + 1
-        elif self.cur_directiion == Direction.UP_LEFT_DIAGNOL:
+        elif self.cur_direction == Direction.UP_LEFT_DIAGNOL:
             cur_x = cur_x - 1
             cur_y = cur_y - 1
         elif self.cur_direction == Direction.UP_RIGHT_DIAGNOL:
@@ -34,7 +34,7 @@ class Grid:
         elif self.cur_direction == Direction.DOWN_LEFT_DIAGNOL:
             cur_x = cur_x - 1
             cur_y = cur_y + 1
-        elif self.cur_direciton == Direction.DOWN_RIGHT_DIAGNOL:
+        elif self.cur_direction == Direction.DOWN_RIGHT_DIAGNOL:
             cur_x = cur_x + 1
             cur_y = cur_y + 1
         return GridPoint(cur_x, cur_y)
