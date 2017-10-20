@@ -14,6 +14,13 @@ class Grid:
         self.dimension = _dimension 
         self.create_grid_points()
 
+    def fill_in_blanks(self):
+        for x in range(self.max):
+            for y in range(self.max):
+                if(self.grid_points[x][y] == ''):
+                    self.grid_points[x][y] = choice(string.ascii_lowercase)
+
+
     def create_grid_points(self):
        self.max = self.dimension - 1 
        self.grid_points = [['']*self.dimension for i in range(self.dimension)]
