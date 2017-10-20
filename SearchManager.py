@@ -41,6 +41,12 @@ class SearchManager:
             grid = Grid(search_dimensions) 
             for w in words_strs:
                 grid.insert_word(w)
+            grid.fill_in_blanks()
+            with open('wordsearch.txt','w') as f:
+                for x in range(grid.max):
+                    for y in range(grid.max): 
+                        f.write(grid.grid_points[x][y])
+                    f.write('\n')
         else:
             #didn't pass validation
             print("Words length can't be more than 20 characters long and word must contain only letters from the Alphabet.")
