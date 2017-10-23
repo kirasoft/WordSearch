@@ -2,7 +2,6 @@ from random import random, randint, choice
 import string
 from copy import deepcopy
 from .Direction import * 
-from .SearchChar import *
 from .GridPoint import * 
 
 class Grid:

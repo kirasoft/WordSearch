@@ -1,7 +1,6 @@
-from Models.Word import Word
-from Models.SearchChar import SearchChar
-from Models.Direction import Direction 
-from Models.Grid import Grid
+from Classes.Word import Word
+from Classes.Direction import Direction 
+from Classes.Grid import Grid
 from random import randint
 
 # Manages all word search related functionality 
