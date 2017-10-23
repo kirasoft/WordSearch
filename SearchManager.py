@@ -13,12 +13,16 @@ class SearchManager:
     def start():
         print("Enter your words seperated by a comma.") 
         #take in users words
-        words_str = input("Enter search words: ") 
-        words_strs = words_str.split(",")
+        words_str = input("Enter search words seperated by a comma. No spaces or numbers: ") 
+        words_strs = set(words_str.split(","))
         passes_validation =  True
         longest_word_length = 0
 
+        total_length_of_all_words = 0
+
         for word in words_strs:
+
+            word.replace(" ", "")
 
             if len(word) > 20:
                 passes_validation = False
@@ -31,12 +35,19 @@ class SearchManager:
                 passes_validation = False
                 break
 
+            total_length_of_all_words += len(word)
+
         if passes_validation:
             #display created word search 
-            if longest_word_length < 10:
-                longest_word_length = 10
 
             search_dimensions = randint(longest_word_length, longest_word_length + 5)
+
+            if search_dimensions < 10:
+                search_dimensions = 10
+
+            while total_length_of_all_words > search_dimensions * search_dimensions * .6:
+                search_dimensions = round(search_dimensions * 1.5)  
+            
             grid = Grid(search_dimensions) 
             for w in words_strs:
                 grid.insert_word(w)

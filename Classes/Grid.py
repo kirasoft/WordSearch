@@ -1,5 +1,6 @@
 from random import random, randint, choice
 import string
+import pprint
 from copy import deepcopy
 from .Direction import * 
 from .GridPoint import * 
@@ -54,6 +55,9 @@ class Grid:
         x = deepcopy(cur_x)
         y = deepcopy(cur_y)
         for c in word:
+            if x > self.max or x < 0 or y > self.max or y < 0:
+                print("x {0} or y {1} for word: {2}".format(x, y, word))
+                return False
             if self.grid_points[x][y] == '' or self.grid_points[x][y] == c:
                 grid_point = self.move_current_position(x, y)
                 x = grid_point.x
